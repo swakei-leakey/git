@@ -795,7 +795,7 @@ test_expect_success 'repack --write-midx includes cruft when necessary' '
 
 		test_path_is_file $(ls $packdir/pack-*.mtimes) &&
 		ls $packdir/pack-*.idx | sort >packs.all &&
-		grep -o "pack-.*\.idx$" packs.all >in &&
+		sed -n "s/.*\(pack-.*\.idx\)$/\1/p" packs.all >in &&
 
 		git multi-pack-index write --stdin-packs --bitmap <in &&
 
